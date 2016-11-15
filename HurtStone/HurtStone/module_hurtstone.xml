@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_hurtstone" default="compile.module.hurtstone">
+  <dirname property="module.hurtstone.basedir" file="${ant.file.module_hurtstone}"/>
+  
+  <property name="module.jdk.home.hurtstone" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.hurtstone" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.hurtstone" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.hurtstone" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="hurtstone.output.dir" value="${module.hurtstone.basedir}/out/production/HurtStone"/>
+  <property name="hurtstone.testoutput.dir" value="${module.hurtstone.basedir}/out/test/HurtStone"/>
+  
+  <path id="hurtstone.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="hurtstone.module.production.classpath">
+    <path refid="${module.jdk.classpath.hurtstone}"/>
+  </path>
+  
+  <path id="hurtstone.runtime.production.module.classpath">
+    <pathelement location="${hurtstone.output.dir}"/>
+  </path>
+  
+  <path id="hurtstone.module.classpath">
+    <path refid="${module.jdk.classpath.hurtstone}"/>
+    <pathelement location="${hurtstone.output.dir}"/>
+  </path>
+  
+  <path id="hurtstone.runtime.module.classpath">
+    <pathelement location="${hurtstone.testoutput.dir}"/>
+    <pathelement location="${hurtstone.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.hurtstone">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.hurtstone">
+    <patternset refid="excluded.from.module.hurtstone"/>
+  </patternset>
+  
+  <path id="hurtstone.module.sourcepath">
+    <dirset dir="${module.hurtstone.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.hurtstone" depends="compile.module.hurtstone.production,compile.module.hurtstone.tests" description="Compile module HurtStone"/>
+  
+  <target name="compile.module.hurtstone.production" depends="register.custom.compilers" description="Compile module HurtStone; production classes">
+    <mkdir dir="${hurtstone.output.dir}"/>
+    <javac2 destdir="${hurtstone.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hurtstone}/javac">
+      <compilerarg line="${compiler.args.hurtstone}"/>
+      <bootclasspath refid="hurtstone.module.bootclasspath"/>
+      <classpath refid="hurtstone.module.production.classpath"/>
+      <src refid="hurtstone.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hurtstone"/>
+    </javac2>
+    
+    <copy todir="${hurtstone.output.dir}">
+      <fileset dir="${module.hurtstone.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.hurtstone.tests" depends="register.custom.compilers,compile.module.hurtstone.production" description="compile module HurtStone; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.hurtstone" description="cleanup module">
+    <delete dir="${hurtstone.output.dir}"/>
+    <delete dir="${hurtstone.testoutput.dir}"/>
+  </target>
+</project>

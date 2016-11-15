@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane alignment="center" hgap="10" minHeight="-Infinity" minWidth="-Infinity" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="265.0" prefWidth="324.0" style="-fx-background-color: #456990;">
+         <children>
+            <AnchorPane prefHeight="64.0" prefWidth="324.0" style="-fx-background-color: E4FDE1;">
+               <children>
+                  <Label id="Result" fx:id="Num" alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="7.0" prefHeight="58.0" prefWidth="236.0" text="00000000000000" textAlignment="CENTER" textFill="#616161" visible="false">
+                     <font>
+                        <Font name="Roboto Light" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <TextField id="Field" fx:id="Text" alignment="CENTER" layoutX="88.0" layoutY="120.0" promptText="Enter Turn Number" />
+            <Button id="Calc" fx:id="Calc" layoutX="119.0" layoutY="185.0" mnemonicParsing="false" onAction="#makeCalc" text="Calculate" textFill="#434342">
+               <font>
+                  <Font name="Raleway Medium" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

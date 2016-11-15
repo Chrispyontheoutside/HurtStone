@@ -1,0 +1,1 @@
+A JavaFX Hearthstone Fatigue calculator.
